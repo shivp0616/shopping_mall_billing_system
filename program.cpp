@@ -1,140 +1,154 @@
+//header files
 #include<iostream>
 using namespace std;
 #include<conio.h>
 #include<stdio.h>
 #include<process.h>
 #include<fstream>
+
 class product
 {
-int pno;
-char name[50];
-float price,qty,tax,dis;
-public:
-void create_product()
-{
-cout<<"Please Enter The Product No. of The Product";
-cin>>pno;
-cout<<"\n\nPlease Enter The Name of The Product ";
-cin>>name;
-cout<<"\nPlease Enter The Price of The Product ";
-cin>>price;
-cout<<"\nPlease Enter The Discount (%) ";
-cin>>dis;
-cout<<"enter the tax of product";
-cin>>tax;
-}
-void show_product()
-{
-cout<<"\nThe Product No. of The Product:"<<pno;
-cout<<"\nThe Name of The Product:"<<name;
-cout<<"\nThe Price of The Product:"<<price;
-cout<<"\nDiscount:"<<dis;
-cout<<"\nTax:"<<tax;
-}
-int retpno()
-{return pno;}
-float retprice()
-{return price;}
-char* retname()
-{return name;}
-int retdis()
-{return dis;}
-int rettax()
-{return tax;}
+	int pno;
+	char name[50];
+	float price,qty,tax,dis;
+	public:
+		void create_product()
+		{
+		cout<<"Please Enter The Product No. of The Product";
+		cin>>pno;
+		cout<<"\n\nPlease Enter The Name of The Product ";
+		cin>>name;
+		cout<<"\nPlease Enter The Price of The Product ";
+		cin>>price;
+		cout<<"\nPlease Enter The Discount (%) ";
+		cin>>dis;
+		cout<<"enter the tax of product";
+		cin>>tax;
+		}
+		void show_product()
+		{
+		cout<<"\nThe Product No. of The Product:"<<pno;
+		cout<<"\nThe Name of The Product:"<<name;
+		cout<<"\nThe Price of The Product:"<<price;
+		cout<<"\nDiscount:"<<dis;
+		cout<<"\nTax:"<<tax;
+		}
+		int retpno()
+		{
+			return pno;
+		}
+		float retprice()
+		{
+			return price;
+		}
+		char* retname()
+		{
+			return name;
+		}
+		int retdis()
+		{
+			return dis;
+		}
+		int rettax()
+		{
+			return tax;
+		}
 }; 
+
 fstream fp;
 product pr;
+
 void write_product()
 {
-fp.open("Shop.dat",ios::out|ios::app);
-pr.create_product();
-fp.write((char*)&pr,sizeof(product));
-fp.close();
-cout<<"\n\nThe Product Has Been Created ";
-getch();
+	fp.open("Shop.dat",ios::out|ios::app);
+	pr.create_product();
+	fp.write((char*)&pr,sizeof(product));
+	fp.close();
+	cout<<"\n\nThe Product Has Been Created ";
+	getch();
 }
 void display_all()
 {
-cout<<"\n\n\n\t\tDISPLAY ALL RECORD !!!\n\n";
-fp.open("Shop.dat",ios::in);
-while(fp.read((char*)&pr,sizeof(product)))
-{
-pr.show_product();
-cout<<"\n\n====================================\n";
-getch();
-}
-fp.close();
-getch();
+	cout<<"\n\n\n\t\tDISPLAY ALL RECORD !!!\n\n";
+	fp.open("Shop.dat",ios::in);
+	while(fp.read((char*)&pr,sizeof(product)))
+	{
+		pr.show_product();
+		cout<<"\n\n====================================\n";
+		getch();
+	}
+	fp.close();
+	getch();
 }
 void display_sp(int n)
 {
-int flag=0;
-fp.open("Shop.dat",ios::in);
-while(fp.read((char*)&pr,sizeof(product)))
-{
-if(pr.retpno()==n)
-{
-pr.show_product();
-flag=1;
-}
-}
-fp.close();
-if(flag==0)
-cout<<"\n\nrecord not exist";
-getch();
+	int flag=0;
+	fp.open("Shop.dat",ios::in);
+	while(fp.read((char*)&pr,sizeof(product)))
+	{
+		if(pr.retpno()==n)
+		{
+			pr.show_product();
+			flag=1;
+		}
+	}
+	fp.close();
+	if(flag==0)
+		cout<<"\n\nrecord not exist";
+	getch();
 }
 //***************************************************************
 // function to modify record of file
 //****************************************************************
 void modify_product()
 {
-int no,found=0;
-cout<<"\n\n\tTo Modify ";
-cout<<"\n\n\tPlease Enter The Product No. of The Product";
-cin>>no;
-fp.open("Shop.dat",ios::in|ios::out);
-while(fp.read((char*)&pr,sizeof(product)) && found==0)
-{
-if(pr.retpno()==no)
-{
-pr.show_product();
-cout<<"\nPlease Enter The New Details of Product"<<endl;
-pr.create_product();
-int pos=-1*sizeof(pr);
-fp.seekp(pos,ios::cur);
-fp.write((char*)&pr,sizeof(product));
-cout<<"\n\n\t Record Updated";
-found=1;
-}
-}
-fp.close();
-if(found==0)
-cout<<"\n\n Record Not Found ";
-getch();
+	int no,found=0;
+	cout<<"\n\n\tTo Modify ";
+	cout<<"\n\n\tPlease Enter The Product No. of The Product";
+	cin>>no;
+	fp.open("Shop.dat",ios::in|ios::out);
+	while(fp.read((char*)&pr,sizeof(product)) && found==0)
+	{
+		if(pr.retpno()==no)
+		{
+			pr.show_product();
+			cout<<"\nPlease Enter The New Details of Product"<<endl;
+			pr.create_product();
+			int pos=-1*sizeof(pr);
+			fp.seekp(pos,ios::cur);
+			fp.write((char*)&pr,sizeof(product));
+			cout<<"\n\n\t Record Updated";
+			found=1;
+		}
+	}
+	fp.close();
+	if(found==0)
+		cout<<"\n\n Record Not Found ";
+	getch();
 }
 void delete_product()
 {
-int no;
-cout<<"\n\n\n\tDelete Record";
-cout<<"\n\nPlease Enter The product no. of The Product You Want To Delete";
-cin>>no;
-fp.open("Shop.dat",ios::in|ios::out);
-fstream fp2;
-fp2.open("Temp.dat",ios::out);
-fp.seekg(0,ios::beg);
-while(fp.read((char*)&pr,sizeof(product)))
-{
-if(pr.retpno()!=no)
-{
-fp2.write((char*)&pr,sizeof(product));
-}
-}
-fp2.close();
-fp.close();
-remove("Shop.dat");
-rename("Temp.dat","Shop.dat");
-cout<<"\n\n\tRecord Deleted ..";
-getch();
+	int no;
+	cout<<"\n\n\n\tDelete Record";
+	cout<<"\n\nPlease Enter The product no. of The Product You Want To Delete";
+	cin>>no;
+	fp.open("Shop.dat",ios::in|ios::out);
+	fstream fp2;
+	fp2.open("Temp.dat",ios::out);
+	fp.seekg(0,ios::beg);
+	while(fp.read((char*)&pr,sizeof(product)))
+	{
+		if(pr.retpno()!=no)
+		{
+			fp2.write((char*)&pr,sizeof(product));
+		}
+	}
+	fp2.close();
+	fp.close();
+	remove("Shop.dat");
+	rename("Temp.dat","Shop.dat");
+	cout<<"\n\n\tRecord Deleted ..";
+	getch();
 }
 void menu()
 {
