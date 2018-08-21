@@ -14,24 +14,24 @@ class product
 	public:
 		void create_product()
 		{
-		cout<<"Please Enter The Product No. of The Product";
-		cin>>pno;
-		cout<<"\n\nPlease Enter The Name of The Product ";
-		cin>>name;
-		cout<<"\nPlease Enter The Price of The Product ";
-		cin>>price;
-		cout<<"\nPlease Enter The Discount (%) ";
-		cin>>dis;
-		cout<<"enter the tax of product";
-		cin>>tax;
+			cout<<"Please Enter The Product No. of The Product";
+			cin>>pno;
+			cout<<"\n\nPlease Enter The Name of The Product ";
+			cin>>name;
+			cout<<"\nPlease Enter The Price of The Product ";
+			cin>>price;
+			cout<<"\nPlease Enter The Discount (%) ";
+			cin>>dis;
+			cout<<"enter the tax of product";
+			cin>>tax;
 		}
 		void show_product()
 		{
-		cout<<"\nThe Product No. of The Product:"<<pno;
-		cout<<"\nThe Name of The Product:"<<name;
-		cout<<"\nThe Price of The Product:"<<price;
-		cout<<"\nDiscount:"<<dis;
-		cout<<"\nTax:"<<tax;
+			cout<<"\nThe Product No. of The Product:"<<pno;
+			cout<<"\nThe Name of The Product:"<<name;
+			cout<<"\nThe Price of The Product:"<<price;
+			cout<<"\nDiscount:"<<dis;
+			cout<<"\nTax:"<<tax;
 		}
 		int retpno()
 		{
@@ -152,131 +152,131 @@ void delete_product()
 }
 void menu()
 {
-fp.open("Shop.dat",ios::in);
-if(!fp)
-{
-cout<<"ERROR!!! FILE COULD NOT BE OPEN\n\n\n Go To Admin Menu to create file";
-cout<<"\n\n\n Program is closing ....";
-getch();
-exit(0);
-}
-cout<<"\n\n\t\tProduct MENU\n\n";
-cout<<"====================================================\n";
-cout<<"P.NO.\t\tNAME\t\tPRICE\n";
-cout<<"====================================================\n";
-while(fp.read((char*)&pr,sizeof(product)))
-{
-cout<<pr.retpno()<<"\t\t"<<pr.retname()<<"\t\t"<<pr.retprice()<<endl;
-}
-fp.close();
+	fp.open("Shop.dat",ios::in);
+	if(!fp)
+	{
+		cout<<"ERROR!!! FILE COULD NOT BE OPEN\n\n\n Go To Admin Menu to create file";
+		cout<<"\n\n\n Program is closing ....";
+		getch();
+		exit(0);
+	}
+	cout<<"\n\n\t\tProduct MENU\n\n";
+	cout<<"====================================================\n";
+	cout<<"P.NO.\t\tNAME\t\tPRICE\n";
+	cout<<"====================================================\n";
+	while(fp.read((char*)&pr,sizeof(product)))
+	{
+		cout<<pr.retpno()<<"\t\t"<<pr.retname()<<"\t\t"<<pr.retprice()<<endl;
+	}
+	fp.close();
 }
 
 void place_order()
 {
-int order_arr[50],quan[50],c=0;
-float amt,damt,total=0;
-char ch='Y';
-menu();
-cout<<"\n============================";
-cout<<"\n PLACE YOUR ORDER";
-cout<<"\n============================\n";
-do{
-cout<<"\n\nEnter The Product No. Of The Product : ";
-cin>>order_arr[c];
-cout<<"\nQuantity in number : ";
-cin>>quan[c];
-c++;
-cout<<"\nDo You Want To Order Another Product ? (y/n)";
-cin>>ch;
-}while(ch=='y' ||ch=='Y');
-cout<<"\n\nThank You For Placing The Order";
-getch();
-cout<<"\n\n********************************INVOICE************************\n";
-cout<<"\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after discount\n";
-for(int x=0;x<=c;x++)
-{
-fp.open("Shop.dat",ios::in);
-fp.read((char*)&pr,sizeof(product));
-while(!fp.eof())
-{
-if(pr.retpno()==order_arr[x])
-{
-amt=pr.retprice()*quan[x];
-damt=amt-(amt*pr.retdis()/100);
-cout<<"\n"<<order_arr[x]<<"\t"<<pr.retname()
-<<"\t"<<quan[x]<<"\t\t"<<pr.retprice()<<"\t"<<amt<<"\t\t"<<damt;
-total+=damt;
-}
-fp.read((char*)&pr,sizeof(product));
-}
-fp.close();
-}
-cout<<"\n\n\t\t\t\t\tTOTAL = "<<total;
-getch();
+	int order_arr[50],quan[50],c=0;
+	float amt,damt,total=0;
+	char ch='Y';
+	menu();
+	cout<<"\n============================";
+	cout<<"\n PLACE YOUR ORDER";
+	cout<<"\n============================\n";
+	do{
+		cout<<"\n\nEnter The Product No. Of The Product : ";
+		cin>>order_arr[c];
+		cout<<"\nQuantity in number : ";
+		cin>>quan[c];
+		c++;
+		cout<<"\nDo You Want To Order Another Product ? (y/n)";
+		cin>>ch;
+	}while(ch=='y' ||ch=='Y');
+	cout<<"\n\nThank You For Placing The Order";
+	getch();
+	cout<<"\n\n********************************INVOICE************************\n";
+	cout<<"\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after discount\n";
+	for(int x=0;x<=c;x++)
+	{
+		fp.open("Shop.dat",ios::in);
+		fp.read((char*)&pr,sizeof(product));
+		while(!fp.eof())
+		{
+			if(pr.retpno()==order_arr[x])
+			{
+				amt=pr.retprice()*quan[x];
+				damt=amt-(amt*pr.retdis()/100);
+				cout<<"\n"<<order_arr[x]<<"\t"<<pr.retname()
+				<<"\t"<<quan[x]<<"\t\t"<<pr.retprice()<<"\t"<<amt<<"\t\t"<<damt;
+				total+=damt;
+			}
+		fp.read((char*)&pr,sizeof(product));
+		}
+		fp.close();
+	}
+	cout<<"\n\n\t\t\t\t\tTOTAL = "<<total;
+	getch();
 }
 void intro()
 {
-cout<<"**********SUPER MARKET**********";
-cout<<"\n************BILLING*************";
-cout<<"\n*************SYSTEM*************";
-getch();
+	cout<<"**********SUPER MARKET**********";
+	cout<<"\n************BILLING*************";
+	cout<<"\n*************SYSTEM*************";
+	getch();
 }
 void admin_menu()
 {
-char ch2;
-cout<<"\n\n\n\tADMIN MENU";
-cout<<"\n\n\t1.CREATE PRODUCT";
-cout<<"\n\n\t2.DISPLAY ALL PRODUCTS";
-cout<<"\n\n\t3.QUERY ";
-cout<<"\n\n\t4.MODIFY PRODUCT";
-cout<<"\n\n\t5.DELETE PRODUCT";
-cout<<"\n\n\t6.VIEW PRODUCT MENU";
-cout<<"\n\n\t7.BACK TO MAIN MENU";
-cout<<"\n\n\tPlease Enter Your Choice (1-7) ";
-ch2=getche();
-switch(ch2)
-{
-case '1': 
-write_product();
-break;
-case '2': display_all();break;
-case '3':
-int num;
-cout<<"\n\n\tPlease Enter The Product No. ";
-cin>>num;
-display_sp(num);
-break;
-case '4': modify_product();break;
-case '5': delete_product();break;
-case '6': menu();
-getch();
-case '7': break;
-default:cout<<"\a";admin_menu();
-}
+	char ch2;
+	cout<<"\n\n\n\tADMIN MENU";
+	cout<<"\n\n\t1.CREATE PRODUCT";
+	cout<<"\n\n\t2.DISPLAY ALL PRODUCTS";
+	cout<<"\n\n\t3.QUERY ";
+	cout<<"\n\n\t4.MODIFY PRODUCT";
+	cout<<"\n\n\t5.DELETE PRODUCT";
+	cout<<"\n\n\t6.VIEW PRODUCT MENU";
+	cout<<"\n\n\t7.BACK TO MAIN MENU";
+	cout<<"\n\n\tPlease Enter Your Choice (1-7) ";
+	ch2=getche();
+	switch(ch2)
+	{
+		case '1': 
+			write_product();
+			break;
+		case '2': display_all();break;
+		case '3':
+			int num;
+			cout<<"\n\n\tPlease Enter The Product No. ";
+			cin>>num;
+			display_sp(num);
+			break;
+		case '4': modify_product();break;
+		case '5': delete_product();break;
+		case '6': menu();
+		getch();
+		case '7': break;
+		default:cout<<"\a";admin_menu();
+	}
 }
 int main()
 {
 	intro();
-char ch;
-int ro();
-do
-{
-cout<<"\n\n\n\tMAIN MENU";
-cout<<"\n\n\t01. CUSTOMER";
-cout<<"\n\n\t02. ADMINISTRATOR";
-cout<<"\n\n\t03. EXIT";
-cout<<"\n\n\tPlease Select Your Option (1-3) ";
-ch=getche();
-switch(ch)
-{
-case '1':
-place_order();
-getch();
-break;
-case '2': admin_menu();
-break;
-case '3':exit(0);
-default :cout<<"Wrong Choice";
-}
-}while(ch!='3');
+	char ch;
+	int ro();
+	do
+	{
+		cout<<"\n\n\n\tMAIN MENU";
+		cout<<"\n\n\t01. CUSTOMER";
+		cout<<"\n\n\t02. ADMINISTRATOR";
+		cout<<"\n\n\t03. EXIT";
+		cout<<"\n\n\tPlease Select Your Option (1-3) ";
+		ch=getche();
+		switch(ch)
+		{
+			case '1':
+				place_order();
+				getch();
+				break;
+			case '2': admin_menu();
+				break;
+			case '3':exit(0);
+			default :cout<<"Wrong Choice";
+		}
+	}while(ch!='3');
 }
