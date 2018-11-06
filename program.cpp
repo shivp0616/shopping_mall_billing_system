@@ -1,10 +1,11 @@
 //header files
 #include<iostream>
-using namespace std;
 #include<conio.h>
 #include<stdio.h>
 #include<process.h>
 #include<fstream>
+
+using namespace std;
 
 class product
 {
@@ -12,6 +13,7 @@ class product
 	char name[50];
 	float price,qty,tax,dis;
 	public:
+		//to create a new product
 		void create_product()
 		{
 			cout<<"Please Enter The Product No. of The Product";
@@ -25,6 +27,7 @@ class product
 			cout<<"enter the tax of product";
 			cin>>tax;
 		}
+		//to show the details of the product
 		void show_product()
 		{
 			cout<<"\nThe Product No. of The Product:"<<pno;
