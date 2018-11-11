@@ -161,6 +161,8 @@ void delete_product()
 	cout<<"\n\n\tRecord Deleted ..";
 	getch();
 }
+
+//show the products and their price
 void menu()
 {
 	fp.open("Shop.dat",ios::in);
@@ -182,6 +184,7 @@ void menu()
 	fp.close();
 }
 
+//add the item into the cart
 void place_order()
 {
 	int order_arr[50],quan[50],c=0;
@@ -225,6 +228,8 @@ void place_order()
 	cout<<"\n\n\t\t\t\t\tTOTAL = "<<total;
 	getch();
 }
+
+//display in the start
 void intro()
 {
 	cout<<"**********SUPER MARKET**********";
@@ -232,6 +237,8 @@ void intro()
 	cout<<"\n*************SYSTEM*************";
 	getch();
 }
+
+//admin menu
 void admin_menu()
 {
 	char ch2;
@@ -265,6 +272,8 @@ void admin_menu()
 		default:cout<<"\a";admin_menu();
 	}
 }
+
+
 int main()
 {
 	intro();
