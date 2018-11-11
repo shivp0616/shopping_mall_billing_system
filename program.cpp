@@ -61,6 +61,7 @@ class product
 fstream fp;
 product pr;
 
+//writing the product into file
 void write_product()
 {
 	fp.open("Shop.dat",ios::out|ios::app);
@@ -70,6 +71,8 @@ void write_product()
 	cout<<"\n\nThe Product Has Been Created ";
 	getch();
 }
+
+//display all the products
 void display_all()
 {
 	cout<<"\n\n\n\t\tDISPLAY ALL RECORD !!!\n\n";
