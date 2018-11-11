@@ -86,6 +86,8 @@ void display_all()
 	fp.close();
 	getch();
 }
+
+//display an specific product
 void display_sp(int n)
 {
 	int flag=0;
@@ -106,6 +108,7 @@ void display_sp(int n)
 //***************************************************************
 // function to modify record of file
 //****************************************************************
+
 void modify_product()
 {
 	int no,found=0;
@@ -132,6 +135,8 @@ void modify_product()
 		cout<<"\n\n Record Not Found ";
 	getch();
 }
+
+//delete the product from the file
 void delete_product()
 {
 	int no;
